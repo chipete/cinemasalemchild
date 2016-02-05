@@ -1,0 +1,15 @@
+/*
+Theme Name:     Cinemasalem Child
+Theme URI:      http://cinemasalem.com
+Author:         Chris Peters
+Author URI:     http://lightmarkcreative.com
+Template:       Cinemasalem
+Description:    Child theme for Cinemasalem.com
+Version:        1.0
+License:        GNU General Public License v2 or later
+License URI:    http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:    cinemasalem-child
+*/
+
+
+@import "../cinemasalem/style.css";
