@@ -23,9 +23,9 @@ get_header(); ?>
   
 	<?php
 
-	$q = "nowplaying";
-	$i = 0;
-	$backup = $post;
+	//$q = "nowplaying";
+	$i 		= 0;
+	$backup = clone $post;
 
 	$args = array(
 					'post_type'         => 'WPMT_Film',
@@ -44,25 +44,29 @@ get_header(); ?>
 			if ( ! get_field( 'wpmt_film_hide' ) )  {
 				// displays the film
 				wpmt_cs_display_film_listing();
+				$i++;
+
+				if( $i == 5 ) {
+					echo '<div class="clear">&nbsp;</div>';
+					$i=0;
+				}
 			}
 		}
 	} // endif
 
-	$post = $backup;
+	$post = clone $backup;
 
 	?>
-
-
-</div><!-- close content-full-->
  
-  <?php endwhile; else: ?>
-  <p><strong>Your requested post cannot be found.</strong><br />
-  </p>
-  <p><a href="<?php bloginfo('blog_url'); ?>">Return to the homepage</a></p>
- <?php endif; ?>
- 
- <div id="clear" class="clear">&nbsp;</div>
-</div><!-- end #content-->
+  	<?php endwhile; else: ?>
+
+  	<p><strong>Your requested post cannot be found.</strong><br /></p>
+  	<p><a href="<?php bloginfo('blog_url'); ?>">Return to the homepage</a></p>
+
+	<?php endif; ?>
+	<div id="clear" class="clear">&nbsp;</div>
+
+</div><!-- end #content -->
 
 
 <?php get_footer(); ?>
@@ -76,6 +80,7 @@ function wpmt_cs_display_film_listing() { ?>
 	<div class="fs_poster">
 		<a href="<?php the_permalink(); ?>">
 			<?php
+
 			if ( get_field( 'wpmt_film_poster' ) ) {
 				echo wp_get_attachment_image(get_field('wpmt_film_poster'),
 					$size = 'wpmt_poster',
@@ -100,7 +105,6 @@ function wpmt_cs_display_film_listing() { ?>
 		<?php if ( get_field('wpmt_film_rating') ) 		{ the_field('wpmt_film_rating'); }						?>
 		<?php if ( get_field('wpmt_film_rating')
 				&& get_field('wpmt_film_duration') ) 	{ echo " / "; }											?>
-
 		<?php if ( get_field('wpmt_film_duration') ) 	{ the_field('wpmt_film_duration'); echo " mins"; } 		?>
 	</div>
 
@@ -119,22 +123,24 @@ function wpmt_cs_display_film_listing() { ?>
 	Buy Tickets
 
 	<div class="fs_showtimes">
-
 		<?php
 
 		global $post;
-		$backup = $post;
+		$backup = clone $post;
 
-		wpmt_display_sessions ( get_field( 'wpmt_film_id' ) );
+		if ( wpmt_sessions_exist ( get_field( 'wpmt_film_id' ) ) ) {
+			wpmt_display_sessions ( get_field( 'wpmt_film_id' ), 2 );
+			$post = clone $backup;
+			echo '<br /><br /><a href="' . get_permalink() . '">[MORE]</a>';
+		}
 
-		$post = $backup;
-		/*
+		else {
+			$post = clone $backup;
+			echo "No tickets available at this time";
+		}
 
-		 if ( ( displayShowtimes($film, "all", "status") == "comingsoon" || (displayShowtimes($film, "all", "status") == "nextweek" && !isTuesdayYet())))
-			echo "Coming <br />" . date("D, M j", strtotime(displayShowtimes($film, "all", "first")));
-		else
-			echo displayShowtimes($film, "all");
-		*/
+
+
 		?>
 	</div>
 

@@ -1,0 +1,58 @@
+<!--HOME TEMPLATE-->
+<?php 
+
+/**
+ * @package WordPress
+ * @subpackage CinemaSalem v1
+ */
+
+/*
+Template Name: HOME template
+*/
+
+$debug = false;
+
+get_header(); ?>
+
+<div class="content_home" id="content">
+	<div class="clear">&nbsp;</div>
+
+
+	<!-- ALERTS -->
+
+	<?php
+	$args = array( 'post_type' => 'CS_Alerts', 'posts_per_page' => 1 );
+	$loop = new WP_Query( $args );
+	while ( $loop->have_posts() ) : $loop->the_post();
+		echo '<div class="cs-alert">';
+		the_title();
+		echo '</div>';
+	endwhile;
+	?>
+	<div class="clear">&nbsp;</div>
+
+
+	<!-- SLIDER -->
+
+	<?php include (TEMPLATEPATH . '/incs/widget-slider.php'); ?>
+
+
+	<!-- PERFORMANCES -->
+
+	<?php include (TEMPLATEPATH . '/incs/widget-performances.php'); ?>
+
+
+	<!-- UPCOMING EVENTS -->
+
+	<?php include (TEMPLATEPATH . '/incs/widget-upcoming-events.php'); ?>
+
+
+	<!-- SHOWTIMES / SESSIONS -->
+
+	<?php include (TEMPLATEPATH . '/incs/widget-sessions.php'); ?>
+
+
+</div><!-- end #content-->
+
+<?php get_footer(); ?>
+

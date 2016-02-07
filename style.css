@@ -13,3 +13,10 @@ Text Domain:    cinemasalem-child
 
 
 @import "../cinemasalem/style.css";
+
+.fd_description {
+    margin: 0px 0px 15px 15px;
+    width: 491px;
+    font-size: 11px;
+    float: left;
+}
