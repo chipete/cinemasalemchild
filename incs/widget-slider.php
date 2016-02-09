@@ -19,181 +19,40 @@
 
 				<?php
 
-				global $pods;
-				$slider    	= new Pod('slider', 'homeslider');
+				//$backup = clone $post;
 
-				if( !empty( $slider->data ) )
-					$slides	= $slider->get_field('slides');
+				$args = array(
+					'post_type'         => 'WPMT_Film',
+					'posts_per_page'   	=> '5',
+					'meta_key'          => 'wpmt_film_image',
+					'orderby'           => 'meta_value',
+					'order'             => 'ASC'
+				);
 
-				for ($i=1, $size = sizeof($slides); $i <= $size+1; $i++) :
+				$i = 0;
+				$my_query = new WP_Query( $args );
 
-		  if ($i > $size)
-			$k = 1;
+				if ( $my_query->have_posts() ) {
 
-		  else
-			$k = $i;
+					while ( $my_query->have_posts() ) {
+						$my_query->the_post();
+						if ( ! get_field( 'wpmt_film_hide' ) )  {
 
-		  $film	= $slides[$k-1];
+							// displays the film
+							wpmt_cs_display_slider_content( $post, $i );
+							$i++;
 
+						}
+					}
+					echo '<div class="clear">&nbsp;</div>';
+				} // endif
 
-		  if($film) {
-			$id					= $film['id'];
-			echo $key;
-		  }
+				//$post = clone $backup;
+				wp_reset_postdata ();
 
-		  $film_info			= new Pod('film_info', $id);
-		  $film_info2			= new Pod('film_info', $id);
-
-		  if( !empty( $film_info->data ) ) {
-			  $id				= $film_info->get_field('id');
-			  $name				= $film_info->get_field('name');
-			  $image640			= $film_info->get_field('image640');
-			  $customimage480	= $film_info->get_field('customimage640.ID');
-			  $customposter		= $film_info->get_field('customposter.guid');
-			  $threedee			= $film_info->get_field('threedee');
-			  $rating			= $film_info->get_field('rating');
-			  $length			= $film_info->get_field('length');
-			  $sr				= $film_info->get_field('sr');
-			  $copyright		= $film_info->get_field('copyright');
-			  $director			= $film_info->get_field('director');
-			  $description		= $film_info->get_field('description');
-			  $shortdesc		= $film_info->get_field('shortdesc');
-			  $genre		    = $film_info->get_field('genre');
-			  $poster			= $film_info->get_field('poster');
-			  $quicktime 		= $film_info->get_field('quicktime');
-			  $youtube 			= $film_info->get_field('youtube');
-			  $namecode			= $film_info->get_field('namecode');
-			  $showtimescode	= $film_info->get_field('showtimescode');
-			  $showhide			= $film_info->get_field('showhide'); // hd = hide date
-			  $slug				= $film_info->get_field('slug');
-			  $free				= $film_info->get_field('free');
-			  $event			= $film_info->get_field('event');
-			  $showrt			= $film_info->get_field('showrt');
-			  $tomatometer		= $film_info->get_field('tomatometer');
-			  $tomatoconsensus	= $film_info->get_field('tomatoconsensus');
-			  $facebookevent	= $film_info->get_field('facebookevent');
-			  $showhide			= $film_info->get_field('showhide');  // hd = hide date, //hs = hide showtimes, //hf = hide film
-
-			  //check to see if event is 'Z'
-			  if ($event =="Z") $showhide = "hf";
-
-			  //check to see if hidden
-			  if ($showhide !="hf") {
-
-			  //format
-			  $status			= displayShowtimes($film_info2, "all", "status");
-			  $last				= date("D, M j", strtotime(displayShowtimes($film_info2, "all", "last")));
-			  $first			= date("D, M j", strtotime(displayShowtimes($film_info2, "all", "first")));
-			  $today			= date("D, M j");
-
-			  $nextTuesday		= isTuesdayYet(true)." +1 week";
-			  $nextTuesday	 	= date("D, M j", strtotime($nextTuesday));
-
-			  $length			= round($length) ." min";
-			  $tomatometer		= round($tomatometer);
-			  $filmlink			= "http://www.cinemasalem.com/movies/" . $id;
-
-			  if($showrt == "")	{ if($tomatometer >=75)	$showrt= "1";	elseif ($tomatometer >=60) $showrt= "3"; 	}
-			  if($showrt == "4")	$showrt = "";
-
-			  if($customposter)
-				$poster			= $customposter;
-			  elseif(!$poster)
-				$poster 		= "http://www.cinemasalem.com/wordpress/wp-content/themes/cinemasalem/images/empty_poster.png";
-
-			  if($customimage480) {
-				//last parameter can be thumbnail, medium, large or full
-				$customimage480A 		= wp_get_attachment_image_src($customimage480,'slider-thumbnail');
-				$customimage480 		= $customimage480A[0];
-				//$customimage480_Width	= $customimage480A[1];
-				//$customimage480_Height 	= $customimage480A[2];
-			  }
-
-			  elseif($image640) {
-					$customimage480 		= $image640;
-			  }
-			  else
-				$customimage480 = $poster;
-
-			}//showhide
-		  }
-
-		//check to see if hidden
-		if ($showhide !="hf") :
-		?>
-		<div class="coda-nav-li tab<?php echo $i; ?>">
-
-			<div class="slider-tab">
-				<?php if($status): 									 ?>	<div class="slider-status slider-status-<?php echo $status ?>">		&nbsp;</div>	<?php endif ?>
-				<?php if($event =="E" || $event=="L"): 				 ?>	<div class="slider-event slider-event-<?php echo $event ?>">		&nbsp;</div><div class="slider-when">SPECIAL EVENT	<br />	<?php echo $first; ?>	</div>
-				<?php elseif($event =="T"): 						 ?>	<div class="slider-event slider-event-<?php echo $event ?>">		&nbsp;</div><div class="slider-when">ON THE BIG SREEN<br />	<?php echo $first; ?>	</div>
-				<?php elseif($event == "F" && $status=="nowplaying" && $last == $today):	?>															<div class="slider-when">ENDS TODAY		<br />	<?php echo $last; ?>	</div>
-				<?php elseif($event == "F" && $status=="nowplaying" && isTuesdayYet() && strtotime($last) < strtotime($nextTuesday) && $showhide != "hd"):?><div class="slider-when">THROUGH	<br />	<?php echo $last; ?>	</div>
-				<?php elseif($status!="nowplaying" && $showhide != "hd") : 				 ?>																<div class="slider-when">OPENS			<br />	<?php echo $first; ?>	</div>
-				<?php else : 				 ?>																											<div class="slider-when"><a href="<?php echo $filmlink; ?>">More<br />Info...</a></div><?php endif ?>
-			</div><!--close slider-tab"-->
-
-			<div class="coda-img"><a href="<?php echo $filmlink ?>"><img src="<?php echo $customimage480; ?>" alt="film still" height="290px" /></a></div>
-
-			<div class="coda-content">
-				  <div class="fd_title">
-					  <h3><a href="<?php echo $filmlink ?>"><?php echo $name?></a></h3>
-				  </div>
-
-				  <?php if ($rating) : ?>
-				  <div class="fs_rating">
-					  <?php echo $rating . ", " . $length ?>
-				  </div>
-				  <?php endif ?>
-
-				  <?php if ($shortdesc) : ?>
-				  <div class="fs_description">
-
-					  <?php echo $shortdesc; ?>
-					  <a href="<?php echo $filmlink ?>">[more]</a>
-					  <?php if($free): ?>	<div class="slider-event-free">	&nbsp;</div>	<?php endif ?>
-
-					  <?php if ($sr || $threedee) : ?>
-					  <div class="fs_sr_3d" style="text-align:left">
-						  <?php if ($sr) { echo "Presented in our intimate 18-seat screening room"; } ?>
-						  <?php if ($threedee) { echo "Presented in Fabulous 3D!"; } ?>
-					  </div>
-					  <?php endif ?>
-
-				  </div>
-				  <?php endif ?>
-				  <div class="slider_bottom_btns">
-					  <?php if ($facebookevent): ?>
-					  <div class="watch_trailer"><a href="<?php echo $facebookevent ?>" target="_blank"><img src="<?php imageurl() ?>/facebookevent.png" alt="facebook event" /></a></div>
-					  <?php endif ?>
-
-					  <?php if ($showrt): ?>
-					  <div class="watch_trailer"><div class="rt_<?php if ($tomatometer >= 60) echo "fresh"; else echo "rotten"; ?>">&nbsp;</div>
-						<div class="rt_text"><a href="<?php echo $filmlink ?>"><?php if ($tomatometer >= 60) echo "RT Fresh!"; ?><?php if ($showrt == "1" || $showrt == "2") echo " (" . $tomatometer . "%)"; ?></a></div>
-					  </div>
-					  <?php endif ?>
-
-					  <?php if ($quicktime || $youtube) : ?>
-					  <div class="watch_trailer">
-						  <a href="<?php echo $filmlink ?>"><img src="<?php imageurl() ?>/watch_trailer.png" alt="watch trailer" /> </a>
-					  </div>
-					  <?php endif ?>
-
-					  <?php if ($event == "F") : ?>
-					  <div class="watch_trailer">
-						  <a href="<?php echo $filmlink ?>"><img src="<?php imageurl() ?>/btn_get_showtimes.png" alt="get showtimes" /> </a>
-					  </div>
-					  <?php endif ?>
-				  </div><!--slider_bottom_btns"-->
-
-			</div><!--coda-content-->
-
-		</div><!--coda-nav-li-->
-		<?php endif; //showhide ?>
-	   <?php endfor; ?>
+				?>
 
 			</div><!--#coda-nav-ul-->
-
 		</div><!--#coda-nav-1-->
 
 
@@ -201,76 +60,158 @@
 
 		<div class="coda-slider preload" id="coda-slider-1">
 			<div class="slider_over">&nbsp;</div>
+
 			<?php
 
-			global $pods;
-			$slider    	= new Pod('slider', 'homeslider');
+			//$backup = clone $post;
 
-			if( !empty( $slider->data ) )
-			$slides	= $slider->get_field('slides');
+			$args = array(
+				'post_type'         => 'WPMT_Film',
+				'posts_per_page'   	=> '5',
+				'meta_key'          => 'wpmt_film_image',
+				'orderby'           => 'meta_value',
+				'order'             => 'ASC'
+			);
+
+			$slides 	= array();
+			$my_query 	= new WP_Query( $args );
+
+			if ( $my_query->have_posts() ) {
+
+				while ( $my_query->have_posts() ) {
+					$my_query->the_post();
+					if ( ! get_field( 'wpmt_film_hide' ) )  {
+
+						// add ID of post to slides array
+						$slides[] = get_the_ID();
+					}
+				}
+			} // endif
 
 
-			for ($i=0, $size = sizeof($slides); $i <= $size + 4; $i++) :
+			for ($i=0, $size = sizeof($slides); $i <= $size + 4; $i++) {
 
-	  if ($i == 0)
-		$j 	= $size;
+				if ($i == 0)
+					$j = $size;
 
-	  elseif ($i <=$size)
-		$j	= $i;
+				elseif ($i <= $size)
+					$j = $i;
 
-	  else  //$i > size
-		$j	= $i-$size;
+				else  //$i > size
+					$j = $i - $size;
 
-	  $film = $slides[$j-1];
+				$post_id = $slides[$j - 1];
 
-	  if($film)
-		  $id				= $film['id'];
+				wpmt_cs_display_slider_panel( $post_id, $j );
 
-	  $film_info			= new Pod('film_info', $id);
+			}
+			echo '<div class="clear">&nbsp;</div>';
 
-	  if( !empty( $film_info->data ) ) {
-		  $customposter		= $film_info->get_field('customposter.guid');
-		  $customimage480	= $film_info->get_field('customimage640.ID');
-		  $poster			= $film_info->get_field('poster');
-		  $image640			= $film_info->get_field('image640');
-		  $showhide			= $film_info->get_field('showhide');  // hd = hide date, //hs = hide showtimes, //hf = hide film
-		  $event			= $film_info->get_field('event');
-	  }
+			wp_reset_postdata ();
 
-	 //check to see if event is 'Z'
-	if ($event =="Z") $showhide = "hf";
-
-	//check for showhide
-	if($showhide !="hf") :
-
-	  if($customimage480) {
-			//last parameter can be thumbnail, medium, large or full
-			$customimage480A 		= wp_get_attachment_image_src($customimage480,'thumbnail');
-			$thumb			 		= $customimage480A[0];
-	  }
-
-	  elseif($image640) {
-			$thumb			= $image640;
-	  }
-	  elseif($customposter)
-		  $thumb			= $customposter;
-
-	  elseif($poster)
-		  $thumb			= $poster;
-
-	  else
-		  $thumb 			= "http://www.cinemasalem.com/wordpress/wp-content/themes/cinemasalem/images/empty_poster.png";
-	  ?>
-
-	  <div class="panel">
-		  <div class="panel-wrapper">
-			  <a class="xtrig" href="#<?php echo $j; ?>"  rel="coda-slider-1"><img src="<?php echo $thumb; ?>" height="112px" alt="thumb" /> </a>
-		  </div>
-	  </div>
-	  <?php endif //showhide ?>
-  <?php endfor ?>
+			?>
 
 		</div><!-- .coda-slider -->
 
 	</div><!-- .coda-slider-wrapper -->
 </div><!--slideshow-->
+
+
+<?php function wpmt_cs_display_slider_content( $post ) {	?>
+
+	<div class="coda-nav-li tab<?php echo $i; ?>">
+
+		<div class="slider-tab">
+			<?php echo "now playing"; ?>
+		</div><!--close slider-tab"-->
+
+		<div class="coda-img">
+			<a href="<?php the_permalink() ?>">
+
+				<?php echo wp_get_attachment_image( get_field( 'wpmt_film_image' ),
+					$size = 'wpmt_image',
+					$icon = false,
+					$attr = array ( 'alt' => get_the_title( $post ), 'title' => get_the_title( $post ) )
+				);
+				?>
+
+			</a>
+		</div>
+
+		<div class="coda-content">
+			<div class="fd_title">
+				<h3><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h3>
+			</div>
+
+			<div class="fs_rating">
+				<?php if ( get_field('wpmt_film_genre') ) 		{ the_field('wpmt_film_genre'); } 	                    ?>
+				<?php if ( get_field('wpmt_film_genre')
+					&& get_field('wpmt_film_rating') ) 	        { echo " / "; }											?>
+				<?php if ( get_field('wpmt_film_rating') ) 		{ the_field('wpmt_film_rating'); }						?>
+				<?php if ( get_field('wpmt_film_rating')
+					&& get_field('wpmt_film_duration') ) 	{ echo " / "; }											    ?>
+				<?php if ( get_field('wpmt_film_duration') ) 	{ the_field('wpmt_film_duration'); echo " mins"; } 		?>
+			</div>
+
+			<div class="fs_description">
+				<?php echo wp_trim_words( get_field( 'wpmt_film_synopsis'), 100, '...' ); ?>
+				<a href="<?php the_permalink(); ?>">[MORE]</a>
+
+				<div class="fs_sr_3d">
+					<?php //if ( get_field('wpmt_screen_id') == '4' ) 			{ echo 'Presented in our intimate 18-seat screening room'; } 	?>
+					<?php if ( get_field('wpmt_film_format') == '3D Digital' ) 	{ echo 'Presented in Fabulous 3D!'; } 							?>
+					<?php if( get_field('wpmt_film_free') )						{ echo '<div class="slider-event-free">	&nbsp;</div>'; }		?>
+				</div>
+			</div> <!-- #fs_description -->
+
+			<div class="slider_bottom_btns">
+
+				<?php if ( get_field('wpmt_film_rt_rating') ): ?>
+					<div class="watch_trailer"><div class="rt_<?php if ( get_field('wpmt_film_rt_rating') >= 60) echo "fresh"; else echo "rotten"; ?>">&nbsp;</div>
+						<div class="rt_text"><a href="<?php echo the_permalink(); ?>"><?php if ( get_field('wpmt_film_rt_rating') >= 60) echo 'RT Fresh! (' . get_field('wpmt_film_rt_rating') . '%)'; ?></a></div>
+					</div>
+				<?php endif ?>
+
+				<?php if ( get_field('wpmt_film_youtube_url') ) : ?>
+					<div class="watch_trailer">
+						<a href="<?php echo the_permalink(); ?>"><img src="<?php imageurl() ?>/watch_trailer.png" alt="watch trailer" /> </a>
+					</div>
+				<?php endif ?>
+
+				<?php if ( wpmt_sessions_exist( get_field('wpmt_film_id') ) ) : ?>
+					<div class="watch_trailer">
+						<a href="<?php echo the_permalink(); ?>"><img src="<?php imageurl() ?>/btn_get_showtimes.png" alt="get showtimes" /> </a>
+					</div>
+				<?php endif ?>
+
+			</div><!--slider_bottom_btns"-->
+
+		</div><!--coda-content-->
+
+	</div><!--coda-nav-li-->
+
+<?php } ?>
+
+
+<?php function wpmt_cs_display_slider_panel( $post_id, $i ) { ?>
+
+	<div class="panel">
+		<div class="panel-wrapper">
+			<a class="xtrig" href="#<?php echo $i; ?>"  rel="coda-slider-1">
+				<?php
+				if( get_field ( 'wpmt_film_image', $post_id ) ) {
+					echo wp_get_attachment_image( get_field( 'wpmt_film_image', $post_id ),
+						$size = 'wpmt_slider_thumb',
+						$icon = false
+					);
+				}
+				else {
+					echo '<img src="http://placehold.it/170x112?text=Film+Thumb" id="thumb">';
+				}
+
+				?>
+			</a>
+		</div>
+	</div>
+
+<?php } ?>

@@ -48,7 +48,7 @@ get_header(); ?>
 
 				if( $i == 5 ) {
 					echo '<div class="clear">&nbsp;</div>';
-					$i=0;
+					$i = 0;
 				}
 			}
 		}
@@ -138,8 +138,6 @@ function wpmt_cs_display_film_listing() { ?>
 			$post = clone $backup;
 			echo "No tickets available at this time";
 		}
-
-
 
 		?>
 	</div>

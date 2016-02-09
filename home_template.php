@@ -34,22 +34,22 @@ get_header(); ?>
 
 	<!-- SLIDER -->
 
-	<?php include (TEMPLATEPATH . '/incs/widget-slider.php'); ?>
+	<?php include ( get_stylesheet_directory() . '/incs/widget-slider.php') ; ?>
 
 
 	<!-- PERFORMANCES -->
 
-	<?php include (TEMPLATEPATH . '/incs/widget-performances.php'); ?>
+	<?php //include (TEMPLATEPATH . '/incs/widget-performances.php'); ?>
 
 
 	<!-- UPCOMING EVENTS -->
 
-	<?php include (TEMPLATEPATH . '/incs/widget-upcoming-events.php'); ?>
+	<?php //include ( get_stylesheet_directory() . '/incs/widget-upcoming-events.php'); ?>
 
 
 	<!-- SHOWTIMES / SESSIONS -->
 
-	<?php include (TEMPLATEPATH . '/incs/widget-sessions.php'); ?>
+	<?php include ( get_stylesheet_directory() . '/incs/widget-sessions.php' ); ?>
 
 
 </div><!-- end #content-->
