@@ -38,8 +38,8 @@ get_header(); ?>
 	$my_query = new WP_Query( $args );
 
 	if ( $my_query->have_posts() ) {
-
 		while ( $my_query->have_posts() ) {
+
 			$my_query->the_post();
 			if ( ! get_field( 'wpmt_film_hide' ) )  {
 				// displays the film
@@ -51,7 +51,7 @@ get_header(); ?>
 					$i = 0;
 				}
 			}
-		}
+		} // endwhile
 	} // endif
 
 	$post = clone $backup;

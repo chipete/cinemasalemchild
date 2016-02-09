@@ -49,7 +49,7 @@ get_header(); ?>
 
 	<!-- SHOWTIMES / SESSIONS -->
 
-	<?php include ( get_stylesheet_directory() . '/incs/widget-sessions.php' ); ?>
+	<?php //include ( get_stylesheet_directory() . '/incs/widget-sessions.php' ); ?>
 
 
 </div><!-- end #content-->
