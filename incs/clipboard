@@ -1,0 +1,51 @@
+
+
+
+
+
+
+/*'meta_query' => array(
+array(
+'key'     => 'wpmt_session_film_id',
+'orderby' => 'meta_value',
+'order' => ASC,
+),
+array(
+'key'     => 'wpmt_session_start',
+'orderby' => 'meta_value',
+'order' => ASC,
+),
+),*/
+
+
+
+
+
+<?php
+$timestamp = strtotime( get_field( 'wpmt_session_start' ) );
+$session_date = date( 'l, M j', $timestamp ); ?>
+
+<?php //if ( $session_date == $today ) : ?>
+
+<?php if ( get_field( 'wpmt_session_film_id' ) != $film_id ) :
+    $film_id = get_field ( 'wpmt_session_film_id' ); ?>
+    <h3>
+        <?php echo get_the_title() . "  (" . get_field( 'wpmt_session_rating') . ")"?>
+    </h3>
+
+<?php else:  ?>
+    <?php echo ' <a class="btn btn-info"
+							  href="' . get_field( 'wpmt_session_ticket_url' ) . '"
+							  target="_blank">' . date( 'g:ia', $timestamp ) . '</a> '; ?>
+<?php endif; ?>
+
+<?php //else: echo $session_date; break; ?>
+<?php //endif ?>
+
+
+
+
+
+
+
+

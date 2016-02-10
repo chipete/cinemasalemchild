@@ -19,3 +19,12 @@ Text Domain:    cinemasalem-child
     float: left;
 }
 
+.showtimes-middle {
+    padding: 10px;
+}
+
+.showtimes-middle h5 {
+    margin: 10px 0px 0px 0px;
+    font-weight: bold;
+}
+

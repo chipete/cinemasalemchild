@@ -29,15 +29,8 @@
 			<div class="showtimes-header showtimes-header-orange">&nbsp;</div>
 			<div class="showtimes-middle showtimes-middle-orange">
 
-				<?php if (displayShowtimes($film, "all", "status") == "nowplaying") : ?>
-					<div class="home_title home_title_more">
-						<a href="<?php echo $Sfilmlink ?>" target="_blank"><?php echo $Sname . "  (" . $Srating . ")"?></a>
-						<br />
-						<div class ="home_title_st">
-							<?php echo displayShowtimes($film, "all"); ?>
-						</div>
-					</div>
-				<?php endif ?>
+				<?php wpmt_display_all_sessions(); ?>
+
 			</div>
 			<div class="showtimes-footer showtimes-footer-orange">&nbsp;</div>
 			<p style="font-size:11px">Click a showtime to purchase a ticket.  (Parenthesis) indicate Matinee Pricing.  For ticket prices, <a href="http://cinemasalem.com/films-and-showtimes/ticket-pricing">click here</a>.</p>
@@ -53,36 +46,87 @@
 
 	<?php
 
-	$today = date ( 'l', strtotime('today') );
+	$today = date( 'l, M j', strtotime('now+1day'));
+	echo "today: " . $today;
 
 	$args = array(
 		'post_type'         => 'WPMT_Session',
 		'posts_per_page'    => '-1',
-		'meta_key'          => 'wpmt_session_start',
-		'orderby'           => 'meta_value',
-		'order'             => 'ASC'
+		'meta_query' => array(
+			array(
+				'key'     => 'wpmt_session_film_id',
+				'orderby' => 'meta_value',
+				'order' => 'ASC',
+			),
+			array(
+				'key'     => 'wpmt_session_start',
+				'orderby' => 'meta_value',
+				'order' => 'ASC',
+			),
+		),
 	);
 
-	$my_query = new WP_Query( $args );
+	$my_query2 	= new WP_Query( $args );
+	$film_id	= null;
 
-	if ( $my_query->have_posts() ) :
-		while ( $my_query->have_posts() ) : ?>
+	if ( $my_query2->have_posts() ) :
+		while ( $my_query2->have_posts() ) :
 
-			<?php if ( date( 'l', get_field( 'wpmt_session_start' ) ) == $today ) : ?>
+			$my_query2->the_post();
+
+			$timestamp = strtotime( get_field( 'wpmt_session_start' ) );
+
+			$session_date = date( 'l, M j', $timestamp );
+			//echo "session_date: " . $session_date; ?>
+
+			<?php if ( $session_date == $today ) : ?>
+
 				<?php if ( get_field( 'wpmt_session_film_id' ) != $film_id ) : ?>
-					<div class="home_title">
-					<a href="<?php the_permalink(); ?>" target="_blank"><?php echo get_the_title($post) . "  (" . get_field( 'wpmt_session_rating') . ")"?></a>
-					<br />
-				<?php endif ?>
-				<div class ="home_title_st">
-					<?php echo displayShowtimes($film, "today"); ?>
-				</div>
-				<?php if ( get_field( 'wpmt_session_film_id' ) != $film_id ) : $film_id = get_field ( 'wpmt_session_film_id' ); ?>
-					</div>
+					<?php $film_id = get_field ( 'wpmt_session_film_id' ); ?>
+					<h5>
+						<?php echo get_the_title(); ?>
+					</h5>
 				<?php endif; ?>
-			<?php endif ?>
+
+				<?php echo ' <a class="btn btn-info"
+							  href="' . get_field( 'wpmt_session_ticket_url' ) . '"
+							  target="_blank">' . date( 'g:ia', $timestamp ) . '</a> '; ?>
+
+			<?php //else: echo $session_date;  ?>
+
+			<?php endif; ?>
 
 		<?php endwhile; ?>
 	<?php endif; ?>
 
 <?php } ?>
+
+<?php function wpmt_display_all_sessions () {
+
+	$args = array(
+		'post_type'         => 'WPMT_Film',
+		'posts_per_page'    => '-1',
+		'meta_query' => array(
+			array(
+				'key'     => 'wpmt_film_id',
+				'orderby' => 'meta_value',
+				'order' => 'ASC',
+			),
+		),
+	);
+
+	$my_query3 	= new WP_Query( $args );
+	$film_id	= null;
+
+	if ( $my_query3->have_posts() ) {
+		while ($my_query3->have_posts()) {
+			$my_query3->the_post();
+
+			if (wpmt_sessions_exist(get_field('wpmt_film_id'))) {
+				echo '<h5>' . get_the_title() . '</h5>';
+				wpmt_display_sessions(get_field('wpmt_film_id'), 5);
+			}
+		}
+	}
+
+} ?>

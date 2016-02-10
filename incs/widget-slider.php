@@ -48,7 +48,7 @@
 				} // endif
 
 				//$post = clone $backup;
-				wp_reset_postdata ();
+				//wp_reset_postdata ();
 
 				?>
 
@@ -107,7 +107,7 @@
 			}
 			echo '<div class="clear">&nbsp;</div>';
 
-			wp_reset_postdata ();
+			//wp_reset_postdata ();
 
 			?>
 
