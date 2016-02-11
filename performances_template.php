@@ -96,10 +96,11 @@ function wpmt_cs_display_performance_listing() { ?>
 
 		<div class="wpmt_performance_rating">
 			<?php
+				echo "<h4>";
 				if ( get_field('wpmt_performance_genre') ) {
-					echo "<br><br><h4>";
+
 					the_field('wpmt_performance_genre');
-					echo '</h4><br />';
+					echo '<br />';
 				}
 				if ( get_field('wpmt_performance_rating') ) {
 					the_field('wpmt_performance_rating');
@@ -110,6 +111,7 @@ function wpmt_cs_display_performance_listing() { ?>
 				 if ( get_field('wpmt_performance_duration') ) {
 					 the_field('wpmt_performance_duration'); echo " mins";
 				 }
+			echo "<h4>";
 			?>
 		</div>
 

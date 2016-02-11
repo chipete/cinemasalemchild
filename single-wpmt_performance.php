@@ -64,11 +64,12 @@ while ( have_posts() ) : the_post();
 
                     <?php if ( get_field('wpmt_performance_genre')
                         && get_field('wpmt_performance_rating') ) 	        { echo " / "; }											?>
-                    </h4>
+
                     <?php if ( get_field('wpmt_performance_rating') ) 		{ the_field('wpmt_performance_rating'); }						?>
                     <?php if ( get_field('wpmt_performance_rating')
                         && get_field('wpmt_performance_duration') ) 	{ echo " / "; }											    ?>
                     <?php if ( get_field('wpmt_performance_duration') ) 	{ the_field('wpmt_performance_duration'); echo " mins"; } 		?>
+                    </h4>
                 </div>
 
 
