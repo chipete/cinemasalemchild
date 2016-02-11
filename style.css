@@ -27,4 +27,42 @@ Text Domain:    cinemasalem-child
     margin: 10px 0px 0px 0px;
     font-weight: bold;
 }
+.wpmt_performance_description {
+    font-size: 1em;
+}
 
+.wpmt_performance_container {
+    margin: 20px 0px 0px 0px;
+    width: 100%;
+    display: block;
+    clear: both;
+    min-height: 200px;
+    overflow: auto;
+
+
+}
+.wpmt_performance_thumbnail_container {
+    margin: 0px 10px 0px 10px;
+
+    float: left;
+
+
+}
+.wpmt_performance_info_container {
+    float: left;
+    width: 300px;
+    margin: 0px 10px 0px 10px;
+
+}
+.wpmt_performance_title {
+    color: #7A637C;
+}
+.wpmt_performance_title a {
+    font-size:19px;
+    color: #7A637C !important;
+    font-weight: bold;
+    text-decoration:none;
+}
+
+.wpmt_performance_rating {
+}

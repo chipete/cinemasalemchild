@@ -35,7 +35,7 @@
     <!-- HOMEPAGE SLIDER -->
     <?php
     global $wp_query;
-    if ($wp_query->post->ID == 32 || $wp_query->post->ID == 111) :
+    if ($wp_query->post->ID == 209 || $wp_query->post->ID == 111) :
     //if ( is_home() ) :
 
         /**
@@ -128,7 +128,7 @@
 
 <?php //get page ID for NAV
 
-/* 
+/*
 $ipage = 0;
 if ( is_page(about) || $post->post_parent == 7 ) 
 	{ $ipage = 1; }
