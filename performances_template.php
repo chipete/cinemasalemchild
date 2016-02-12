@@ -76,14 +76,16 @@ function wpmt_cs_display_performance_listing() { ?>
 			<?php
 
 			if ( get_field( 'wpmt_performance_poster' ) ) {
+
 				echo wp_get_attachment_image(get_field('wpmt_performance_poster'),
-					$size = 'wpmt_performance_thumb',
+					$size = 'wpmt_poster',
 					$icon = false,
 					$attr = array('alt' => get_the_title($post), 'title' => get_the_title($post), 'id' => 'poster')
 				);
 			}
+
 			else {
-				echo '<img src="http://placehold.it/134x193?text=Performance+Thumbnail" id="thumbnail">'; //maybe don't display
+				echo '<img src="http://placehold.it/134x193?text=Performance+Thumbnail" id="thumbnail">';
 			}
 
 			?>

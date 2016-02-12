@@ -22,53 +22,25 @@ while ( have_posts() ) : the_post();
 
         <?php if ( ! get_field( 'wpmt_performance_hide' ) ) : ?>
 
-        <div>
-		
-            <div>
-                <?php if ( get_field( 'wpmt_performance_image' ) ) : ?>
-                    <?php echo wp_get_attachment_image( get_field( 'wpmt_performance_image' ),
-                        $size = 'wpmt_image',
-                        $icon = false,
-                        $attr = array ( 'alt' => get_the_title( $post ), 'title' => get_the_title( $post ) )
-                    ); ?>
-                <?php endif ?>
-	        </div> <!-- end #fd_trailer -->
-
-
-            <div class="fs_poster">
-                <?php
-
-                if ( get_field( 'wpmt_performance_poster' ) ) {
-                    echo wp_get_attachment_image(get_field('wpmt_performance_poster'),
-                        $size = 'wpmt_poster',
-                        $icon = false,
-                        $attr = array('alt' => get_the_title($post), 'title' => get_the_title($post), 'id' => 'poster')
-                    );
-                }
-
-                ?>
-            </div> <!-- end #fs_poster -->
-
-
             <div class="wpmt_performance_description">
 
                 <div class="wpmt_performance_title">
                     <h1>
-                    <?php the_title(); ?>
+                        <?php the_title(); ?>
                     </h1>
                 </div>
 
                 <div class="fs_rating">
                     <h4>
-                    <?php if ( get_field('wpmt_performance_genre') ) 		{ the_field('wpmt_performance_genre'); } 	                    ?>
+                        <?php if ( get_field('wpmt_performance_genre') ) 		{ the_field('wpmt_performance_genre'); } 	                    ?>
 
-                    <?php if ( get_field('wpmt_performance_genre')
-                        && get_field('wpmt_performance_rating') ) 	        { echo " / "; }											?>
+                        <?php if ( get_field('wpmt_performance_genre')
+                            && get_field('wpmt_performance_rating') ) 	        { echo " / "; }											?>
 
-                    <?php if ( get_field('wpmt_performance_rating') ) 		{ the_field('wpmt_performance_rating'); }						?>
-                    <?php if ( get_field('wpmt_performance_rating')
-                        && get_field('wpmt_performance_duration') ) 	{ echo " / "; }											    ?>
-                    <?php if ( get_field('wpmt_performance_duration') ) 	{ the_field('wpmt_performance_duration'); echo " mins"; } 		?>
+                        <?php if ( get_field('wpmt_performance_rating') ) 		{ the_field('wpmt_performance_rating'); }						?>
+                        <?php if ( get_field('wpmt_performance_rating')
+                            && get_field('wpmt_performance_duration') ) 	{ echo " / "; }											    ?>
+                        <?php if ( get_field('wpmt_performance_duration') ) 	{ the_field('wpmt_performance_duration'); echo " mins"; } 		?>
                     </h4>
                 </div>
 
@@ -84,6 +56,35 @@ while ( have_posts() ) : the_post();
                     <?php if ( get_field('wpmt_performance_format') == '3D Digital' ) 	{ echo "Presented in Fabulous 3D!"; } 							?>
                 </div>
                 <?php //endif ?>
+        <div>
+		
+            <div>
+                <?php if ( get_field( 'wpmt_performance_image' ) ) : ?>
+                    <?php
+
+                        echo wp_get_attachment_image( get_field( 'wpmt_performance_image' ),
+                        $size = 'wpmt_image',
+                        $icon = false,
+                        $attr = array ( 'alt' => get_the_title( $post ), 'title' => get_the_title( $post ) )
+                    ); ?>
+                <?php endif ?>
+	        </div>
+            <div class="fs_poster">
+                <?php
+
+                if ( get_field( 'wpmt_performance_poster' ) ) {
+                    echo wp_get_attachment_image(get_field('wpmt_performance_poster'),
+                        $size = 'wpmt_poster',
+                        $icon = false,
+                        $attr = array('alt' => get_the_title($post), 'title' => get_the_title($post), 'id' => 'poster')
+                    );
+                }
+
+                ?>
+            </div> <!-- end #fs_poster -->
+
+
+
 
                 <?php the_field( 'wpmt_performance_synopsis' ); ?>
 
