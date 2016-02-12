@@ -29,9 +29,8 @@ while ( have_posts() ) : the_post();
                         <?php the_title(); ?>
                     </h1>
                 </div>
-
                 <div class="fs_rating">
-                    <h4>
+                    <h3>
                         <?php if ( get_field('wpmt_performance_genre') ) 		{ the_field('wpmt_performance_genre'); } 	                    ?>
 
                         <?php if ( get_field('wpmt_performance_genre')
@@ -41,7 +40,7 @@ while ( have_posts() ) : the_post();
                         <?php if ( get_field('wpmt_performance_rating')
                             && get_field('wpmt_performance_duration') ) 	{ echo " / "; }											    ?>
                         <?php if ( get_field('wpmt_performance_duration') ) 	{ the_field('wpmt_performance_duration'); echo " mins"; } 		?>
-                    </h4>
+                    </h3>
                 </div>
 
 
@@ -56,9 +55,8 @@ while ( have_posts() ) : the_post();
                     <?php if ( get_field('wpmt_performance_format') == '3D Digital' ) 	{ echo "Presented in Fabulous 3D!"; } 							?>
                 </div>
                 <?php //endif ?>
-        <div>
 		
-            <div>
+            <div class="wpmt_performance_image_container">
                 <?php if ( get_field( 'wpmt_performance_image' ) ) : ?>
                     <?php
 
@@ -69,19 +67,24 @@ while ( have_posts() ) : the_post();
                     ); ?>
                 <?php endif ?>
 	        </div>
-            <div class="fs_poster">
+        <div class="wpmt_performance_single_content_container">
+
+
+
+
                 <?php
 
                 if ( get_field( 'wpmt_performance_poster' ) ) {
+                    echo '  <div class="wpmt_performance_poster">';
                     echo wp_get_attachment_image(get_field('wpmt_performance_poster'),
                         $size = 'wpmt_poster',
                         $icon = false,
                         $attr = array('alt' => get_the_title($post), 'title' => get_the_title($post), 'id' => 'poster')
                     );
+                    echo '</div>';
                 }
 
                 ?>
-            </div> <!-- end #fs_poster -->
 
 
 
@@ -93,7 +96,7 @@ while ( have_posts() ) : the_post();
                     <div class="fclear"><p><strong>Reviews: </strong></p><?php the_field( 'wpmt_performance_reviews' ); ?></div>
                 <?php endif ?>
 
-                <div><br />Buy Tickets</div>
+                <div class="wpmt_buy_tickets">Buy Tickets</div>
 
                 <div class="fs_showtimes">
                     <?php
@@ -115,11 +118,9 @@ while ( have_posts() ) : the_post();
                     ?>
                 </div>
 
-            </div> <!-- end #fd_description -->
+            </div>
 
-
-        </div> <!-- end #fd_film -->
-
+        </div>
 
         <?php else: ?>
 

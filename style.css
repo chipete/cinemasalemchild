@@ -61,6 +61,17 @@ Text Domain:    cinemasalem-child
     margin: 0px 10px 0px 10px;
 
 }
+.wpmt_performance_image_container {
+    text-align: center;
+    width: 100%;
+    background-color: black;
+    border-top: solid black 2px;
+    border-bottom: solid black 2px;
+}
+.wpmt_performance_single_content_container {
+    margin-top: 3em;
+    padding: 0px;
+}
 .wpmt_performance_title {
     color: #7A637C;
 }
@@ -73,7 +84,22 @@ Text Domain:    cinemasalem-child
 
 .wpmt_performance_rating {
 }
+.wpmt_performance_poster {
+    width:134px;
+    float:left;
+    overflow:hidden;
+    text-align:left;
+    padding: 0em 2em 2em 0em;
+}
+.wpmt_performance_poster #poster {
+    height:193px;
+}
 
+.wpmt_buy_tickets {
+    font-weight: bold;
+    color: black;
+    margin-top: 1em;
+}
 #live-performances {
     width:280px;
     margin:7px 0px 0px 20px;
