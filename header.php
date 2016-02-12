@@ -6,7 +6,6 @@
     <meta name="generator" content="WordPress" /> <!-- leave this for stats (or remove for potential security reasons) -->
     <meta name="author" content="Chris Peters" />
     <meta name="google-site-verification" content="xSMmk-H1fezWcdx8RbUNTwEwT-tSb3zhL7ZH2zf5ib8" />
-    <link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>" type="text/css" media="screen" />
     <link rel="shortcut icon" href="http://www.cinemasalem.com/favicon.ico" />
     <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> RSS Feed" href="<?php bloginfo('rss2_url'); ?>" />
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
@@ -35,8 +34,8 @@
     <!-- HOMEPAGE SLIDER -->
     <?php
     global $wp_query;
-    if ($wp_query->post->ID == 209 || $wp_query->post->ID == 111) :
-    //if ( is_home() ) :
+    //if ($wp_query->post->ID == 209 || $wp_query->post->ID == 111) :
+    if ( is_front_page() ) :
 
         /**
         * Enqueue a script with jQuery as a dependency.

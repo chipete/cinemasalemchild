@@ -1,28 +1,31 @@
-<!-- BLOG REEL -->
+<?php // ?>
 
-<div id="blog-reel">
-	<div id="blog-reel-header">&nbsp;</div>
-	<div id="blog-reel-middle">
-		<div id="blog-reel-content">
-		<?php
+<div id="live-performances">
+	<h1 id="upcoming-events-h1">live performances</h1>
 
-		//$sticky=get_option('sticky_posts') ; $randomStickyNo=(rand()%(count($sticky))); query_posts('p=' . $sticky[($randomStickyNo)]);
-		//$sticky = get_option( 'sticky_posts' );
-		//query_posts( array( 'post__in' => $sticky, 'caller_get_posts' => 1, 'orderby' => ID, 'showposts' => 1 ) );
+	<?php
 
-		query_posts( array('caller_get_posts' => 1, 'orderby' => DATE, 'showposts' => 1 ) );
+	$args = array(
+		'post_type'         => 'WPMT_Performance',
+		'posts_per_page'    => '3',
+	);
 
-		?>
-		<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-		<h3><a href="<?php the_permalink(); ?>" rel="bookmark" title="Permanent Link to <?php the_title(); ?>"><?php the_title(); ?></a></h3>
-		<?php the_time('l, F jS, Y') ?>
+	$my_query4 	= new WP_Query( $args );
+	$film_id	= null;
 
-		<?php the_excerpt(); ?>
+	if ( $my_query4->have_posts() ) :
+		while ( $my_query4->have_posts() ) : $my_query4->the_post(); ?>
 
-		<?php endwhile; endif; ?>
+			<div class="home_event">
+				<div class ="home_event_st">
+					<h3><a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title(); ?>"><?php the_title(); ?></a></h3>
+				</div>
+				<div class="home_event_desc">
+					<?php echo wp_trim_words( get_field('wpmt_performance_synopsis'), 20); ?>
+				</div>
+			</div>
 
-		</div><!--end blog-reel-content-->
-	</div>
+		<?php endwhile; ?>
+	<?php endif; ?>
 
-	<div id="blog-reel-footer"><h3><a href="<?php the_permalink(); ?>" rel="bookmark" title="Permanent Link to <?php the_title(); ?>">read more</a></h3></div>
-</div><!--end blog-reel-->
+</div>

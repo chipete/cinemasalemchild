@@ -25,7 +25,7 @@ get_header(); ?>
 	$loop = new WP_Query( $args );
 	while ( $loop->have_posts() ) : $loop->the_post();
 		echo '<div class="cs-alert">';
-		the_title();
+			the_title();
 		echo '</div>';
 	endwhile;
 	?>
@@ -39,21 +39,17 @@ get_header(); ?>
 
 	<!-- PERFORMANCES -->
 
-	<?php //include (TEMPLATEPATH . '/incs/widget-performances.php'); ?>
+	<?php include ( get_stylesheet_directory() . '/incs/widget-performances.php'); ?>
 
 
 	<!-- UPCOMING EVENTS -->
 
-	<?php //include ( get_stylesheet_directory() . '/incs/widget-upcoming-events.php'); ?>
+	<?php include ( get_stylesheet_directory() . '/incs/widget-upcoming-events.php'); ?>
 
 
 	<!-- SHOWTIMES / SESSIONS -->
 
-	<?php
-
-	include ( get_stylesheet_directory() . '/incs/widget-sessions.php' );
-	//$post = clone $backup;
-	?>
+	<?php include ( get_stylesheet_directory() . '/incs/widget-sessions.php' ); ?>
 
 
 </div><!-- end #content-->

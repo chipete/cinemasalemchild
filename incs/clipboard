@@ -1,5 +1,35 @@
 
 
+to do:
+
+consolidate wpmt_films and performances to just wpmt
+conform secondary loops to get_posts() as it's more efficient
+do meta_query instead of if statement for hide
+
+example of complex wp 4.2 orderby syntax
+
+$q = new WP_Query( array(
+'meta_query' => array(
+'relation' => 'AND',
+'state_clause' => array(
+'key' => 'state',
+'value' => 'Wisconsin',
+),
+'city_clause' => array(
+'key' => 'city',
+'compare' => 'EXISTS',
+),
+),
+'orderby' => 'city_clause', // Results will be ordered by 'city' meta values.
+) );
+This new syntax can be used in conjunction with complex ‘orderby’ parameters:
+
+// ...
+'orderby' => array(
+'city_clause' => 'ASC',
+'state_clause' => 'DESC',
+),
+// ...
 
 
 

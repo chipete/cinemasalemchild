@@ -46,8 +46,8 @@
 
 	<?php
 
-	$today = date( 'l, M j', strtotime('now+1day'));
-	echo "today: " . $today;
+	$today = date( 'l, M j', strtotime('now'));
+	echo '<h5>' . $today . '</h5>';
 
 	$args = array(
 		'post_type'         => 'WPMT_Session',
@@ -61,7 +61,7 @@
 			array(
 				'key'     => 'wpmt_session_start',
 				'orderby' => 'meta_value',
-				'order' => 'ASC',
+				'order' => 'DESC',
 			),
 		),
 	);
@@ -92,12 +92,14 @@
 							  href="' . get_field( 'wpmt_session_ticket_url' ) . '"
 							  target="_blank">' . date( 'g:ia', $timestamp ) . '</a> '; ?>
 
-			<?php //else: echo $session_date;  ?>
-
 			<?php endif; ?>
 
 		<?php endwhile; ?>
 	<?php endif; ?>
+
+	<?php if ( ! $film_id ) {
+		echo '<br /><em>There are no remaining showtimes for today. <br /><br />Please click "more times" to see future showtimes</em>';
+	} ?>
 
 <?php } ?>
 

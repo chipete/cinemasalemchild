@@ -122,7 +122,7 @@
 	<div class="coda-nav-li tab<?php echo $i; ?>">
 
 		<div class="slider-tab">
-			<?php echo "now playing"; ?>
+			<?php echo 'Featured:'; ?>
 		</div><!--close slider-tab"-->
 
 		<div class="coda-img">
