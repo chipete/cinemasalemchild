@@ -10,8 +10,7 @@ Template Name: Film Detail Template
 
 $equalize	= true;
 
-
-include (TEMPLATEPATH . '/header.php');
+get_header();
 
 while ( have_posts() ) : the_post();
 
@@ -19,7 +18,7 @@ while ( have_posts() ) : the_post();
 
 <div class="container" id="equalize">
 
-    <?php //include (TEMPLATEPATH . '/film_detail_sidebar.php'); ?>
+    <?php get_sidebar('film'); ?>
 
     <div class="content_narrow clearfix" id="content">
 
@@ -29,7 +28,7 @@ while ( have_posts() ) : the_post();
 		
             <div class="fd_trailer">
                 <?php if ( get_field( 'wpmt_film_youtube_url' ) ) : ?>
-                    <iframe width="640" height="360" src="<?php echo get_field( 'wpmt_film_youtube_url' ) . '?rel=0&amp;showinfo=0'; ?>" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="640" height="360" src="<?php echo wpmt_get_youtube_embed( get_field( 'wpmt_film_youtube_url' ) ) . '?rel=0&amp;showinfo=0'; ?>" frameborder="0" allowfullscreen></iframe>
 
                 <?php elseif ( get_field( 'wpmt_film_image' ) ) : ?>
                     <?php echo wp_get_attachment_image( get_field( 'wpmt_film_image' ),
@@ -39,7 +38,7 @@ while ( have_posts() ) : the_post();
                     ); ?>
 
                 <?php else : ?>
-                    <?php echo '<img src="http://placehold.it/640x360?text=Film+Image" id="poster">'; ?>
+                    <?php //echo '<img src="http://placehold.it/640x360?text=Film+Image" id="poster">'; ?>
 
                 <?php endif ?>
 	        </div> <!-- end #fd_trailer -->
@@ -66,7 +65,7 @@ while ( have_posts() ) : the_post();
             <div class="fd_description">
 
                 <div class="fd_title">
-                    <?php the_title(); ?>
+                    <h1><?php the_title(); ?></h1>
                 </div>
 
                 <div class="fs_rating">

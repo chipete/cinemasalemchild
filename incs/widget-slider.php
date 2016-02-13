@@ -19,14 +19,22 @@
 
 				<?php
 
-				//$backup = clone $post;
-
 				$args = array(
 					'post_type'         => 'WPMT_Film',
 					'posts_per_page'   	=> '5',
-					'meta_key'          => 'wpmt_film_image',
-					'orderby'           => 'meta_value',
-					'order'             => 'ASC'
+					'meta_query' => array(
+						'relation'  => 'AND',
+						'image'   	=> array(
+							'key'       => 'wpmt_film_image',
+							'compare'   => 'EXISTS',
+						),
+						'start'     => array(
+							'key'       => 'wpmt_film_start',
+							'compare'	=> 'EXISTS',
+						),
+					),
+					'orderby' => 'start', //results sorted by meta_values
+					'order'	  => 'DESC',
 				);
 
 				$i = 0;
@@ -47,9 +55,6 @@
 					echo '<div class="clear">&nbsp;</div>';
 				} // endif
 
-				//$post = clone $backup;
-				//wp_reset_postdata ();
-
 				?>
 
 			</div><!--#coda-nav-ul-->
@@ -63,15 +68,8 @@
 
 			<?php
 
-			//$backup = clone $post;
-
-			$args = array(
-				'post_type'         => 'WPMT_Film',
-				'posts_per_page'   	=> '5',
-				'meta_key'          => 'wpmt_film_image',
-				'orderby'           => 'meta_value',
-				'order'             => 'ASC'
-			);
+			//use the same args as large slides
+			$args = $args;
 
 			$slides 	= array();
 			$my_query 	= new WP_Query( $args );
@@ -122,7 +120,11 @@
 	<div class="coda-nav-li tab<?php echo $i; ?>">
 
 		<div class="slider-tab">
-			<?php echo 'Featured:'; ?>
+			<?php if ( date( 'l, M j', strtotime( 'now +1 day' ) ) >=  date( 'l, M j', strtotime( get_field( 'wpmt_film_start' ) ) ) ) : ?>
+				<div class="slider-status slider-status-<?php echo 'nowplaying'; ?>">	&nbsp;</div>
+			<?php else : ?>
+				<div class="slider-status slider-status-<?php echo 'comingsoon'; ?>">	&nbsp;</div>
+			<?php endif; ?>
 		</div><!--close slider-tab"-->
 
 		<div class="coda-img">

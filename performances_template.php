@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * @package WordPress
@@ -13,49 +13,50 @@ $debug = false; //set debug mode
 
 get_header(); ?>
 
-<div class="content_narrow" id="content">
+<div class="content_full" id="content">
 
 	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-  			<h1><?php the_title() ?></h1>
-  			<?php the_content();?>
-  
-	<?php
+		<h1><?php the_title() ?></h1>
 
-	//$q = "nowplaying";
-	$i 		= 0;
-	$backup = clone $post;
+		<?php the_content();?>
 
-	$args = array(
-					'post_type'         => 'WPMT_Performance',
-					'posts_per_page'    => '-1',
-					'meta_key'          => 'wpmt_performance_opening_date',
-					'orderby'           => 'meta_value',
-					'order'             => 'ASC'
-				);
+		<?php
 
-	$my_query = new WP_Query( $args );
+		//$q = "nowplaying";
+		$i 		= 0;
+		$backup = clone $post;
 
-	if ( $my_query->have_posts() ) {
-		while ( $my_query->have_posts() ) {
+		$args = array(
+			'post_type'         => 'WPMT_Performance',
+			'posts_per_page'    => '-1',
+			'meta_key'          => 'wpmt_performance_opening_date',
+			'orderby'           => 'meta_value',
+			'order'             => 'ASC'
+		);
 
-			$my_query->the_post();
-			if ( ! get_field( 'wpmt_performance_hide' ) )  {
-				// displays the performance
-				wpmt_cs_display_performance_listing();
+		$my_query = new WP_Query( $args );
 
-			}
-		} // endwhile
-	} // endif
+		if ( $my_query->have_posts() ) {
+			while ( $my_query->have_posts() ) {
 
-	$post = clone $backup;
+				$my_query->the_post();
+				if ( ! get_field( 'wpmt_performance_hide' ) )  {
+					// displays the performance
+					wpmt_cs_display_performance_listing();
 
-	?>
- 
-  	<?php endwhile; else: ?>
+				}
+			} // endwhile
+		} // endif
 
-  	<p><strong>Your requested post cannot be found.</strong><br /></p>
-  	<p><a href="<?php bloginfo('blog_url'); ?>">Return to the homepage</a></p>
+		$post = clone $backup;
+
+		?>
+
+	<?php endwhile; else: ?>
+
+		<p><strong>Your requested post cannot be found.</strong><br /></p>
+		<p><a href="<?php bloginfo('blog_url'); ?>">Return to the homepage</a></p>
 
 	<?php endif; ?>
 	<div id="clear" class="clear">&nbsp;</div>
@@ -69,35 +70,35 @@ get_header(); ?>
 
 function wpmt_cs_display_performance_listing() { ?>
 
-<div class="wpmt_performance_container">
+	<div class="wpmt_performance_container">
 
-	<div class="wpmt_performance_thumbnail_container">
-		<a href="<?php the_permalink(); ?>">
-			<?php
+		<div class="wpmt_performance_thumbnail_container">
+			<a href="<?php the_permalink(); ?>">
+				<?php
 
-			if ( get_field( 'wpmt_performance_poster' ) ) {
+				if ( ! empty( get_field( 'wpmt_performance_image' ) ) ) {
 
-				echo wp_get_attachment_image(get_field('wpmt_performance_poster'),
-					$size = 'wpmt_poster',
-					$icon = false,
-					$attr = array('alt' => get_the_title($post), 'title' => get_the_title($post), 'id' => 'poster')
-				);
-			}
+					echo wp_get_attachment_image(get_field('wpmt_performance_image'),
+						$size = 'wpmt_thumb_280x158',
+						$icon = false,
+						$attr = array('alt' => get_the_title($post), 'title' => get_the_title($post), 'id' => 'image', 'width' => '280')
+					);
+				}
 
-			else {
-				echo '<img src="http://placehold.it/134x193?text=Performance+Thumbnail" id="thumbnail">';
-			}
+				else {
+					echo '<img src="http://placehold.it/280x158?text=Performance+Thumbnail" id="thumbnail">';
+				}
 
-			?>
-		</a>
-	</div>
-	<div class="wpmt_performance_info_container">
-		<div class="wpmt_performance_title">
-			<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+				?>
+			</a>
 		</div>
+		<div class="wpmt_performance_info_container">
+			<div class="wpmt_performance_title">
+				<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+			</div>
 
-		<div class="wpmt_performance_rating">
-			<?php
+			<div class="wpmt_performance_rating">
+				<?php
 				echo "<h4>";
 				if ( get_field('wpmt_performance_genre') ) {
 
@@ -110,41 +111,41 @@ function wpmt_cs_display_performance_listing() { ?>
 				if ( get_field('wpmt_performance_rating') && get_field('wpmt_performance_duration') ) {
 					echo " / ";
 				}
-				 if ( get_field('wpmt_performance_duration') ) {
-					 the_field('wpmt_performance_duration'); echo " mins";
-				 }
-			echo "<h4>";
-			?>
-		</div>
+				if ( get_field('wpmt_performance_duration') ) {
+					the_field('wpmt_performance_duration'); echo " mins";
+				}
+				echo "<h4>";
+				?>
+			</div>
 
-		<div class="wpmt_performance_description">
-			<p>
-			<?php echo wp_trim_words( get_field( 'wpmt_performance_synopsis'), 40, '...' ); ?>
-			<a href="<?php the_permalink(); ?>">[MORE]</a>
-			</p>
-		</div>
+			<div class="fs_showtimes h6_larger">
+				<?php
 
-		Buy Tickets
+				global $post;
+				$backup = clone $post;
 
-		<div class="fs_showtimes">
-			<?php
+				if ( wpmt_sessions_exist ( get_field( 'wpmt_performance_id' ) ) ) {
+					wpmt_display_sessions ( get_field( 'wpmt_performance_id' ), 2 );
+					$post = clone $backup;
+				}
 
-			global $post;
-			$backup = clone $post;
+				else {
+					$post = clone $backup;
+					echo "No tickets available at this time";
+				}
 
-			if ( wpmt_sessions_exist ( get_field( 'wpmt_performance_id' ) ) ) {
-				wpmt_display_sessions ( get_field( 'wpmt_performance_id' ), 2 );
-				$post = clone $backup;
-			}
+				?>
+			</div>
 
-			else {
-				$post = clone $backup;
-				echo "No tickets available at this time";
-			}
+			<div class="wpmt_performance_description">
+				<p>
+					<?php echo wp_trim_words( get_field( 'wpmt_performance_synopsis'), 40, '...' ); ?>
+					<a href="<?php the_permalink(); ?>">[MORE]</a>
+				</p>
+			</div>
 
-			?>
-		</div>
-	</div> <!-- end wpmt_performance_info_container -->
-</div> <!-- end wpmt_performance_container -->
+
+		</div> <!-- end wpmt_performance_info_container -->
+	</div> <!-- end wpmt_performance_container -->
 
 <?php } //end wpmt_cs_display_performance_listing ?>

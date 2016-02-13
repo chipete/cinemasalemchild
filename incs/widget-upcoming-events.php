@@ -8,7 +8,7 @@
 	<div class="home_event">
 		<a href="http://www.cinemasalem.com/events/mom-and-baby-show"><?php if( 'Monday' == date( 'l' ) ) { echo ' TODAY! '; } ?></a>
 		<div class ="home_event_st">
-			<?php echo 'Baby & Me Show'; the_baby_show(); ?>
+			<?php echo '<strong>Baby & Me Show'; the_baby_show(); echo '</strong>'; ?>
 		</div>
 		<div class="home_event_desc">
 			<?php 	echo 'Special Baby-friendly Movie! Changing table available...'; ?>
@@ -18,7 +18,7 @@
 	<div class="home_event">
 		<a href="http://www.cinemasalem.com/"><?php if( 'Tuesday' == date( 'l' ) )	echo "(TODAY!) "; ?></a>
 		<div class ="home_event_st">
-			<?php 	echo 'Senior Tuesday'; ?>
+			<?php 	echo '<strong>Senior Tuesday</strong>'; ?>
 		</div>
 		<div class="home_event_desc">
 			<?php echo 'Tickets are just $6 all day for Senior Citizens (62+)'; ?>
@@ -28,13 +28,14 @@
 	<div class="home_event">
 		<a href="http://www.cinemasalem.com/"><?php if( 'Thursday' == date( 'l' ) )	echo "(TODAY!) "; ?></a>
 		<div class ="home_event_st">
-			<?php 	echo 'Student Thursday'; ?>
+			<?php 	echo '<strong>Student Thursday</strong>'; ?>
 		</div>
 		<div class="home_event_desc">
 			<?php echo 'Tickets are just $6 all day for Students with a valid ID'; ?>
 		</div>
 	</div>
 
+	<a href="/index.php/live-performances">[MORE EVENTS]</a>
 </div>
 
 <?php function the_baby_show() {

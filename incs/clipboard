@@ -8,28 +8,52 @@ do meta_query instead of if statement for hide
 
 example of complex wp 4.2 orderby syntax
 
+
 $q = new WP_Query( array(
-'meta_query' => array(
-'relation' => 'AND',
-'state_clause' => array(
-'key' => 'state',
-'value' => 'Wisconsin',
-),
-'city_clause' => array(
-'key' => 'city',
-'compare' => 'EXISTS',
-),
-),
-'orderby' => 'city_clause', // Results will be ordered by 'city' meta values.
+    'meta_query' => array(
+        'relation' => 'AND',
+        'state_clause' => array(
+            'key' => 'state',
+            'value' => 'Wisconsin',
+        ),
+        'city_clause' => array(
+            'key' => 'city',
+            'compare' => 'EXISTS',
+        ),
+    ),
+    'orderby' => 'city_clause', // Results will be ordered by 'city' meta values.
 ) );
+
+//my example
+
+$args = array(
+    'meta_query' => array(
+        'relation'  => 'AND',
+        'film_id'   => array(
+            'key'       => 'wpmt_session_film_id',
+            'value'     => $wpmt_film_id,
+        ),
+        'start'     => array(
+            'key'       => 'wpmt_session_start',
+        ),
+    ),
+    'orderby' => 'start', // Results will be ordered by 'city' meta values.
+);
+
 This new syntax can be used in conjunction with complex ‘orderby’ parameters:
 
 // ...
 'orderby' => array(
-'city_clause' => 'ASC',
-'state_clause' => 'DESC',
+'city_clause'   => 'ASC',
+'state_clause'  => 'DESC',
 ),
 // ...
+
+$args = array(
+'post_type'         => 'wpmt_session',
+'meta_key'          => 'wpmt_session_film_id',
+'meta_value'        => $wpmt_film_id
+);
 
 
 

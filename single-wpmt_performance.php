@@ -5,42 +5,77 @@
  */
 
 /*
-Template Name: Film Detail Template
+Template Name: Performance Detail Template
 */
 
 $equalize	= true;
 
-
-include (TEMPLATEPATH . '/header.php');
+get_header();
 
 while ( have_posts() ) : the_post();
 
 ?>
 
 <div class="container" id="equalize">
+
+    <?php get_sidebar('performance'); ?>
+
     <div class="content_narrow clearfix" id="content">
 
         <?php if ( ! get_field( 'wpmt_performance_hide' ) ) : ?>
 
-            <div class="wpmt_performance_description">
+        <div class="fd_film">
+		
+            <div class="fd_trailer">
+                <?php if ( get_field( 'wpmt_performance_youtube_url' ) ) : ?>
+                    <iframe width="640" height="360" src="<?php echo wpmt_get_youtube_embed( get_field( 'wpmt_performance_youtube_url' ) ) . '?rel=0&amp;showinfo=0'; ?>" frameborder="0" allowfullscreen></iframe>
 
-                <div class="wpmt_performance_title">
-                    <h1>
-                        <?php the_title(); ?>
-                    </h1>
+                <?php elseif ( get_field( 'wpmt_performance_image' ) ) : ?>
+                    <?php echo wp_get_attachment_image( get_field( 'wpmt_performance_image' ),
+                        $size = 'wpmt_image',
+                        $icon = false,
+                        $attr = array ( 'alt' => get_the_title( $post ), 'title' => get_the_title( $post ) )
+                    ); ?>
+
+                <?php else : ?>
+                    <?php //    echo '<img src="http://placehold.it/640x360?text=performance+Image" id="poster">'; ?>
+
+                <?php endif ?>
+	        </div> <!-- end #fd_trailer -->
+
+
+            <div class="fs_poster">
+                <?php
+
+                if ( get_field( 'wpmt_performance_poster' ) ) {
+                    echo wp_get_attachment_image(get_field('wpmt_performance_poster'),
+                        $size = 'wpmt_poster',
+                        $icon = false,
+                        $attr = array('alt' => get_the_title($post), 'title' => get_the_title($post), 'id' => 'poster')
+                    );
+                }
+                else {
+                    echo '<img src="http://placehold.it/134x193?text=performance+Poster" id="poster">';
+                }
+
+                ?>
+            </div> <!-- end #fs_poster -->
+
+
+            <div class="fd_description">
+
+                <div class="fd_title">
+                    <h1><?php the_title(); ?></h1>
                 </div>
+
                 <div class="fs_rating">
-                    <h3>
-                        <?php if ( get_field('wpmt_performance_genre') ) 		{ the_field('wpmt_performance_genre'); } 	                    ?>
-
-                        <?php if ( get_field('wpmt_performance_genre')
-                            && get_field('wpmt_performance_rating') ) 	        { echo " / "; }											?>
-
-                        <?php if ( get_field('wpmt_performance_rating') ) 		{ the_field('wpmt_performance_rating'); }						?>
-                        <?php if ( get_field('wpmt_performance_rating')
-                            && get_field('wpmt_performance_duration') ) 	{ echo " / "; }											    ?>
-                        <?php if ( get_field('wpmt_performance_duration') ) 	{ the_field('wpmt_performance_duration'); echo " mins"; } 		?>
-                    </h3>
+                    <?php if ( get_field('wpmt_performance_genre') ) 		{ the_field('wpmt_performance_genre'); } 	                    ?>
+                    <?php if ( get_field('wpmt_performance_genre')
+                        && get_field('wpmt_performance_rating') ) 	        { echo " / "; }											?>
+                    <?php if ( get_field('wpmt_performance_rating') ) 		{ the_field('wpmt_performance_rating'); }						?>
+                    <?php if ( get_field('wpmt_performance_rating')
+                        && get_field('wpmt_performance_duration') ) 	{ echo " / "; }											    ?>
+                    <?php if ( get_field('wpmt_performance_duration') ) 	{ the_field('wpmt_performance_duration'); echo " mins"; } 		?>
                 </div>
 
 
@@ -55,50 +90,9 @@ while ( have_posts() ) : the_post();
                     <?php if ( get_field('wpmt_performance_format') == '3D Digital' ) 	{ echo "Presented in Fabulous 3D!"; } 							?>
                 </div>
                 <?php //endif ?>
-		
-            <div class="wpmt_performance_image_container">
-                <?php if ( get_field( 'wpmt_performance_image' ) ) : ?>
-                    <?php
+                <h3>Buy Tickets</h3>
+                <div class="fs_showtimes h6_larger">
 
-                        echo wp_get_attachment_image( get_field( 'wpmt_performance_image' ),
-                        $size = 'wpmt_image',
-                        $icon = false,
-                        $attr = array ( 'alt' => get_the_title( $post ), 'title' => get_the_title( $post ) )
-                    ); ?>
-                <?php endif ?>
-	        </div>
-        <div class="wpmt_performance_single_content_container">
-
-
-
-
-                <?php
-
-                if ( get_field( 'wpmt_performance_poster' ) ) {
-                    echo '  <div class="wpmt_performance_poster">';
-                    echo wp_get_attachment_image(get_field('wpmt_performance_poster'),
-                        $size = 'wpmt_poster',
-                        $icon = false,
-                        $attr = array('alt' => get_the_title($post), 'title' => get_the_title($post), 'id' => 'poster')
-                    );
-                    echo '</div>';
-                }
-
-                ?>
-
-
-
-
-                <?php the_field( 'wpmt_performance_synopsis' ); ?>
-
-
-                <?php if ( get_field( 'wpmt_performance_reviews' ) ): ?>
-                    <div class="fclear"><p><strong>Reviews: </strong></p><?php the_field( 'wpmt_performance_reviews' ); ?></div>
-                <?php endif ?>
-
-                <div class="wpmt_buy_tickets">Buy Tickets</div>
-
-                <div class="fs_showtimes">
                     <?php
 
                     global $post;
@@ -107,7 +101,7 @@ while ( have_posts() ) : the_post();
                     if ( wpmt_sessions_exist ( get_field( 'wpmt_performance_id' ) ) ) {
                         wpmt_display_sessions ( get_field( 'wpmt_performance_id' ), 7 );
                         $post = clone $backup;
-                        echo '<br /><br /><a href="' . wpmt_get_ticket_server_url() . '">[SEE ALL DATES AND TIMES]</a>';
+                        echo '<br /><br /><a href="' . wpmt_get_ticket_server_url() . '"></a>';
                     }
 
                     else {
@@ -118,9 +112,26 @@ while ( have_posts() ) : the_post();
                     ?>
                 </div>
 
-            </div>
+                <?php the_field( 'wpmt_performance_synopsis' ); ?>
 
-        </div>
+                <?php if ( get_field( 'wpmt_performance_rt_rating' ) ) : ?>
+                    <div class="fds_rt">
+                        <div class="rt_<?php if ( get_field( 'wpmt_performance_rt_rating' ) >= 60 ) { echo "fresh"; } else { echo "rotten"; } ?>"> &nbsp; </div>
+				  	    <div class="rt_text"><?php if ($tomatometer >= 60) echo '"Certified Fresh" on RottenTomatoes.com'; ?><?php if ($showrt == "1" || $showrt == "2") echo " (" . $tomatometer . "%)"; ?></div>
+                        <?php if ( get_field( 'wpmt_performance_rt_consensus' ) ) : ?><div class="fclear"><p><?php the_field( 'wpmt_performance_rt_consensus' ); ?></p></div><?php endif ?>
+                    </div>
+				<?php endif ?>
+
+                <?php if ( get_field( 'wpmt_performance_reviews' ) ): ?>
+                    <div class="fclear"><p><strong>Reviews: </strong></p><?php the_field( 'wpmt_performance_reviews' ); ?></div>
+                <?php endif ?>
+
+
+            </div> <!-- end #fd_description -->
+
+
+        </div> <!-- end #fd_performance -->
+
 
         <?php else: ?>
 

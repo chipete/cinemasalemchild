@@ -38,8 +38,8 @@
     if ( is_front_page() ) :
 
         /**
-        * Enqueue a script with jQuery as a dependency.
-        */
+         * Enqueue a script with jQuery as a dependency.
+         */
 
         /*
         wp_enqueue_style( 'coda-slider-2.0', get_template_directory_uri() . '/coda-slider-2.0.css' );
@@ -62,21 +62,21 @@
         <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/javascripts/jquery.tools.min.js"></script>
         <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/javascripts/jquery.easing.1.3.js"></script>
         <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/javascripts/jquery.coda-slider-2.0.js"></script>
-        
+
         <script type="text/javascript">
             jQuery().ready(function() {
                 jQuery('#coda-slider-1').codaSlider({
-                        autoSlide: true,
-                        autoSlideInterval: 5100,
-                        autoSlideStopWhenClicked: true,
-                        dynamicArrows: false,
-                        dynamicTabs: false,
-                        firstPanelToLoad: 1,
-                        slideEaseDuration: 1200,
-                        slideEaseFunction: "easeInOutExpo",
-                        autoheight: false,
-                        currentTag: ".coda-nav-li",
-                        reverseSlider: true
+                    autoSlide: true,
+                    autoSlideInterval: 5100,
+                    autoSlideStopWhenClicked: true,
+                    dynamicArrows: false,
+                    dynamicTabs: false,
+                    firstPanelToLoad: 1,
+                    slideEaseDuration: 1200,
+                    slideEaseFunction: "easeInOutExpo",
+                    autoheight: false,
+                    currentTag: ".coda-nav-li",
+                    reverseSlider: true
                 });
             });
         </script>
@@ -170,20 +170,28 @@ else { $ipage = 2; }
     <div id="topNav" class="narrow right">
         <ul>
             <li class="nav_div_113<?php if($ipage == 1){ echo " active_nav";} ?>" id="btn_about">
-                <a href="<?php bloginfo('siteurl');?>/about"><img src="<?php imageurl() ?>/blank.png" alt="About" /></a></li>
+                <a href="<?php bloginfo('siteurl');?>/about"><img src="<?php imageurl() ?>/blank.png" alt="About" /></a>
+            </li>
             <li class="nav_div_113<?php if($ipage == 2){ echo " active_nav";} ?>" id="btn_films">
-                <a href="<?php bloginfo('siteurl');?>/films-and-showtimes"><img src="<?php imageurl() ?>/blank.png" alt="Films &amp; Showtimes" /></a></li>
-            <li class="nav_div_112<?php if($ipage == 3){ echo " active_nav";} ?>" id="btn_blog">
-                <a href="<?php bloginfo('siteurl');?>/blog"><img src="<?php imageurl() ?>/blank.png" alt="Blog" /></a></li>
-            <li class="nav_div_112<?php if($ipage == 129){ echo " active_nav";} ?>" id="btn_cafe">
-                <a href="<?php bloginfo('siteurl');?>/cafe"><img src="<?php imageurl() ?>/blank.png" alt="CinemaSalem Cafe" /></a></li>
-            <li class="nav_div_113<?php if($ipage == 4){ echo " active_nav";} ?>" id="btn_advertise">
-                <a href="<?php bloginfo('siteurl');?>/advertise"><img src="<?php imageurl() ?>/blank.png" alt="Advertise on Screen" /></a></li>
-            <li class="nav_div_112<?php if($ipage == 5){ echo " active_nav";} ?>" id="btn_contact">
-                <a href="<?php bloginfo('siteurl');?>/about/contact" target="_blank"><img src="<?php imageurl() ?>/blank.png" alt="Contact" /></a></li>
-            <li class="nav_div_113<?php if($ipage == 6){ echo " active_nav";} ?>" id="btn_grants">
-                <a href="<?php bloginfo('siteurl');?>/grants"><img src="<?php imageurl() ?>/blank.png" alt="Community Grants" /></a></li>
-            <li class="nav_div_112<?php if($ipage == 7){ echo " active_nav";} ?>" id="btn_events">
-                <a href="<?php bloginfo('siteurl');?>/events"><img src="<?php imageurl() ?>/blank.png" alt="Events &amp; Functions" /></a></li>
+                <a href="<?php bloginfo('siteurl');?>/films-and-showtimes"><img src="<?php imageurl() ?>/blank.png" alt="Films &amp; Showtimes" /></a>
+            </li>
+            <li class="nav_div_112<?php if($ipage == 3){ echo " active_nav";} ?>" id="btn_performances">
+                <a href="<?php bloginfo('siteurl');?>/live-performances"><img src="<?php imageurl() ?>/blank.png" alt="Live Performances" /></a>
+            </li>
+            <li class="nav_div_112<?php if($ipage == 4){ echo " active_nav";} ?>" id="btn_blog">
+                <a href="<?php bloginfo('siteurl');?>/blog"><img src="<?php imageurl() ?>/blank.png" alt="Blog" /></a>
+            </li>
+            <li class="nav_div_113<?php if($ipage == 5){ echo " active_nav";} ?>" id="btn_avert">
+                <a href="<?php bloginfo('siteurl');?>/your-biz-on-screen"><img src="<?php imageurl() ?>/blank.png" alt="Your biz on Screen" /></a>
+            </li>
+            <li class="nav_div_112<?php if($ipage == 6){ echo " active_nav";} ?>" id="btn_contact">
+                <a href="<?php bloginfo('siteurl');?>/about/contact" target="_blank"><img src="<?php imageurl() ?>/blank.png" alt="Contact" /></a>
+            </li>
+            <li class="nav_div_113<?php if($ipage == 7){ echo " active_nav";} ?>" id="btn_grants">
+                <a href="<?php bloginfo('siteurl');?>/grants"><img src="<?php imageurl() ?>/blank.png" alt="Community Grants" /></a>
+            </li>
+            <li class="nav_div_112<?php if($ipage == 8){ echo " active_nav";} ?>" id="btn_events">
+                <a href="<?php bloginfo('siteurl');?>/events"><img src="<?php imageurl() ?>/blank.png" alt="Events &amp; Functions" /></a>
+            </li>
         </ul>
     </div><!-- end #topNav -->
