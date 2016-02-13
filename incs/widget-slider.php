@@ -24,17 +24,18 @@
 					'posts_per_page'   	=> '5',
 					'meta_query' => array(
 						'relation'  => 'AND',
+						'start'     => array(
+							'key'       => 'wpmt_film_start',
+							'value'		=> '',
+							'compare'	=> '!=',
+						),
 						'image'   	=> array(
 							'key'       => 'wpmt_film_image',
 							'compare'   => 'EXISTS',
 						),
-						'start'     => array(
-							'key'       => 'wpmt_film_start',
-							'compare'	=> 'EXISTS',
-						),
 					),
 					'orderby' => 'start', //results sorted by meta_values
-					'order'	  => 'DESC',
+					'order'	  => 'ASC',
 				);
 
 				$i = 0;

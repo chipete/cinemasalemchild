@@ -51,7 +51,7 @@ while ( have_posts() ) : the_post();
                     echo wp_get_attachment_image(get_field('wpmt_performance_poster'),
                         $size = 'wpmt_poster',
                         $icon = false,
-                        $attr = array('alt' => get_the_title($post), 'title' => get_the_title($post), 'id' => 'poster')
+                        $attr = array('alt' => get_the_title($post), 'title' => get_the_title($post), 'id' => 'poster', 'width' => '640')
                     );
                 }
                 else {

@@ -76,7 +76,7 @@ function wpmt_cs_display_performance_listing() { ?>
 			<a href="<?php the_permalink(); ?>">
 				<?php
 
-				if ( ! empty( get_field( 'wpmt_performance_image' ) ) ) {
+				if ( get_field( 'wpmt_performance_image' ) ) {
 
 					echo wp_get_attachment_image(get_field('wpmt_performance_image'),
 						$size = 'wpmt_thumb_280x158',
