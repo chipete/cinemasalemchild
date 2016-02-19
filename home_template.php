@@ -11,6 +11,8 @@ Template Name: HOME template
 */
 
 $debug = false;
+date_default_timezone_set('America/New_York');
+
 
 get_header(); ?>
 

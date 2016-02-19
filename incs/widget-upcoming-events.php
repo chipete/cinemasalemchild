@@ -68,5 +68,5 @@
 			echo '<br />' . $date . ': ' . get_the_title();
 		}
 	}
-	else { echo ': Mondays at 10am'; }
+	else { echo '<br />No show scheduled at this time'; }
 }

@@ -46,7 +46,7 @@
 
 	<?php
 
-	$today = date( 'l, M j', strtotime('now'));
+	$today = date( 'l, M j', strtotime('midnight'));
 	echo '<h5>' . $today . '</h5>';
 
 	$args = array(

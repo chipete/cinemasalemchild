@@ -10,6 +10,7 @@ Template Name: FILMS & SHOWTIMES template
 */
 
 $debug = false; //set debug mode
+date_default_timezone_set('America/New_York');
 
 get_header(); ?>
 
@@ -35,7 +36,7 @@ get_header(); ?>
 		if( $day_one == date( 'l' ) ) { $day_one .='+7 days'; }
 
 		$args = array(
-			'post_type'         => 'WPMT_Film',
+			'post_type'         => 'wpmt_film',
 			'posts_per_page'    => '-1',
 			'meta_key'          => 'wpmt_film_start',
 			'orderby'           => 'meta_value',
