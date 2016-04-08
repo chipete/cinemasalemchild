@@ -30,7 +30,7 @@ get_header(); ?>
 
 		$header_ct 	= 1;
 		$i 			= 0;
-		$day_one	= 'Wednesday';
+		$day_one	= 'Thursday';
 
 		//if today is Friday, add a week to $day (except for today)
 		if( $day_one == date( 'l' ) ) { $day_one .='+7 days'; }

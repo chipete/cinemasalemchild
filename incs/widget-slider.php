@@ -120,13 +120,13 @@
 
 	<div class="coda-nav-li tab<?php echo $i; ?>">
 
-		<div class="slider-tab">
-			<?php if ( date( 'l, M j', strtotime( 'midnight +1 day' ) ) >=  date( 'l, M j', strtotime( get_field( 'wpmt_film_start' ) ) ) ) : ?>
-				<div class="slider-status slider-status-<?php echo 'nowplaying'; ?>">	&nbsp;</div>
-			<?php else : ?>
-				<div class="slider-status slider-status-<?php echo 'comingsoon'; ?>">	&nbsp;</div>
-			<?php endif; ?>
-		</div><!--close slider-tab"-->
+		<!--<div class="slider-tab">
+			<?php //if ( date( 'l, M j', strtotime( 'midnight +1 day' ) ) >=  date( 'l, M j', strtotime( get_field( 'wpmt_film_start' ) ) ) ) : ?>
+				<div class="slider-status slider-status-<?php //echo 'nowplaying'; ?>">	&nbsp;</div>
+			<?php //else : ?>
+				<div class="slider-status slider-status-<?php //echo 'comingsoon'; ?>">	&nbsp;</div>
+			<?php //endif; ?>
+		</div>--><!--close slider-tab"-->
 
 		<div class="coda-img">
 			<a href="<?php the_permalink() ?>">
