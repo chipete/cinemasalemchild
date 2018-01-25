@@ -21,7 +21,7 @@
 			<?php 	echo '<strong>Senior Tuesday</strong>'; ?>
 		</div>
 		<div class="home_event_desc">
-			<?php echo 'Tickets are just $6 all day for Senior Citizens (62+)'; ?>
+			<?php echo 'Tickets are just $7 all day for Senior Citizens (62+)'; ?>
 		</div>
 	</div>
 

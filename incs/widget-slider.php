@@ -21,7 +21,7 @@
 
 				$args = array(
 					'post_type'         => 'WPMT_Film',
-					'posts_per_page'   	=> '5',
+					'posts_per_page'   	=> '8',
 					'meta_query' => array(
 						'relation'  => 'AND',
 						'start'     => array(
