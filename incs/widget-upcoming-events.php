@@ -8,7 +8,7 @@
 	<div class="home_event">
 		<a href="http://www.cinemasalem.com/events/mom-and-baby-show"><?php if( 'Monday' == date( 'l' ) ) { echo ' TODAY! '; } ?></a>
 		<div class ="home_event_st">
-			<?php echo '<strong>Baby & Me Show'; the_baby_show(); echo '</strong>'; ?>
+			<?php echo '<strong>Baby & Me Show'; /*the_baby_show();*/ echo '</strong>'; ?>
 		</div>
 		<div class="home_event_desc">
 			<?php 	echo 'Special Baby-friendly Movie! Changing table available...'; ?>
